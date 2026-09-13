@@ -17,15 +17,309 @@
     "entry_point": "dist/index.js",
     "mcp_config": {
       "command": "node",
-      "args": ["${__dirname}/dist/index.js"],
+      "args": [
+        "${__dirname}/dist/index.js"
+      ],
       "env": {}
     }
   },
+  "user_config": {
+    "workspacesDir": {
+      "type": "string",
+      "title": "Workspaces Directory",
+      "description": "Workspace root directory where imported xlsx tables land (default: ~/.gamenumerics/workspaces). Mapped to the GND_WORKSPACES_DIR environment variable.",
+      "required": false
+    }
+  },
+  "tools": [
+    {
+      "name": "import_xlsx",
+      "description": "Import a local xlsx file and create a workspace: dual-row header merge, numeric column pattern detection (arithmetic/geometric/constant)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "xlsxPath": {
+            "type": "string",
+            "description": "Absolute path to the local xlsx file"
+          }
+        },
+        "required": [
+          "xlsxPath"
+        ]
+      }
+    },
+    {
+      "name": "list_workspaces",
+      "description": "List all available workspaces under the workspaces root",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    {
+      "name": "set_workspace",
+      "description": "Switch the current workspace; subsequent numeric tools operate on it",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Workspace name from list_workspaces"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
+    {
+      "name": "list_tables",
+      "description": "List all numeric tables in the current workspace (name/module/rows/columns)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "module": {
+            "type": "string",
+            "description": "Optional module filter"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "read_table",
+      "description": "Read rows from a table with column selection, filtering, and pagination",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "table": {
+            "type": "string",
+            "description": "Table name from list_tables"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Row limit (default 20)"
+          }
+        },
+        "required": [
+          "table"
+        ]
+      }
+    },
+    {
+      "name": "battle_simulate",
+      "description": "Deterministic battle simulation: player vs enemy panel trade-off, kill turns, bite ratio, Monte Carlo win rate",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "player": {
+            "type": "object",
+            "description": "Player panel: attack/hp/critRate/critDamage/attackSpeed"
+          },
+          "enemy": {
+            "type": "object",
+            "description": "Enemy panel: hp/damage"
+          }
+        },
+        "required": [
+          "player",
+          "enemy"
+        ]
+      }
+    },
+    {
+      "name": "simulate_gacha",
+      "description": "Gacha probability: tiered pools and pity-based drawing with Monte Carlo simulation",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "description": "tiers or pity"
+          }
+        },
+        "required": [
+          "mode"
+        ]
+      }
+    },
+    {
+      "name": "compute_power",
+      "description": "Attribute panel to power rating via the EHP×EDPS analytical model, with marginal value per attribute",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "attrs": {
+            "type": "object",
+            "description": "Attribute panel (attack/hp/critRate/critDamage)"
+          }
+        },
+        "required": [
+          "attrs"
+        ]
+      }
+    },
+    {
+      "name": "power_curve",
+      "description": "Batch power curve over a growth table (level → power), with shape summary",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "table": {
+            "type": "string",
+            "description": "Growth table name"
+          }
+        },
+        "required": [
+          "table"
+        ]
+      }
+    },
+    {
+      "name": "eval_formula",
+      "description": "Deterministically evaluate a numeric formula expression (arithmetic/power/parentheses/variables)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "expression": {
+            "type": "string",
+            "description": "Formula expression"
+          }
+        },
+        "required": [
+          "expression"
+        ]
+      }
+    },
+    {
+      "name": "audit_column",
+      "description": "Column audit: recompute each row against an anchor formula and report deviations (hand-tuned breakpoints)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "table": {
+            "type": "string",
+            "description": "Table name"
+          },
+          "column": {
+            "type": "string",
+            "description": "Column to audit"
+          },
+          "expression": {
+            "type": "string",
+            "description": "Expected formula (x = varColumn value)"
+          }
+        },
+        "required": [
+          "table",
+          "column",
+          "expression"
+        ]
+      }
+    },
+    {
+      "name": "infer_column_rule",
+      "description": "Reverse-infer a column's generation rule (Theil-Sen robust fitting for linear/geometric/power-law curves)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "table": {
+            "type": "string",
+            "description": "Table name"
+          },
+          "column": {
+            "type": "string",
+            "description": "Numeric column to infer"
+          }
+        },
+        "required": [
+          "table",
+          "column"
+        ]
+      }
+    },
+    {
+      "name": "infer_table_relation",
+      "description": "Infer derived column relations (base × coefficient structures) within a table",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "table": {
+            "type": "string",
+            "description": "Table name"
+          }
+        },
+        "required": [
+          "table"
+        ]
+      }
+    },
+    {
+      "name": "grade_workspace",
+      "description": "Grade the workspace's numeric-table regularity (A/B/C levels with coverage rates)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    {
+      "name": "profile_table",
+      "description": "Single-table structural profile: types, monotonicity, primary-key candidates, role candidates",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "table": {
+            "type": "string",
+            "description": "Table name"
+          }
+        },
+        "required": [
+          "table"
+        ]
+      }
+    },
+    {
+      "name": "infer_foreign_keys",
+      "description": "Infer foreign-key relations between tables via value-domain containment",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topN": {
+            "type": "number",
+            "description": "Max candidates (default 20)"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "read_memory",
+      "description": "Read the workspace memory files (PROFILE.md / facts.md)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  ],
   "compatibility": {
     "runtimes": {
       "node": ">=18.0.0"
     },
-    "platforms": ["win32", "darwin", "linux"]
+    "platforms": [
+      "win32",
+      "darwin",
+      "linux"
+    ]
   },
-  "keywords": ["game-design", "game-balance", "numerical-design", "xlsx", "audit", "roguelike"]
+  "keywords": [
+    "game-design",
+    "game-balance",
+    "numerical-design",
+    "xlsx",
+    "audit",
+    "roguelike"
+  ]
 }

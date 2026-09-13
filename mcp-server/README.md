@@ -16,6 +16,12 @@ npx -y mcp-server-gamenumerics
 { "mcpServers": { "gamenumerics": { "command": "npx", "args": ["-y", "mcp-server-gamenumerics"] } } }
 ```
 
+Also on **Smithery** — one-line install ([server page](https://smithery.ai/servers/26048608982lp/gamenumerics)):
+
+```bash
+npx -y @smithery/cli@latest install 26048608982lp/gamenumerics --client claude
+```
+
 **Performance**: ~150ms cold start (spawn → initialize → tools/list) · ~79MB idle memory · 17 tools · clean exit on stdin close.
 
 **Verified hosts**: ZCode ✓ · Claude Code ✓ — per-host config snippets below; host-verification log in [HOST-VERIFICATION.md](HOST-VERIFICATION.md).
