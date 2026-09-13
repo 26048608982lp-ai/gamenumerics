@@ -1,0 +1,31 @@
+{
+  "manifest_version": "0.3",
+  "name": "gamenumerics",
+  "display_name": "GameNumerics — Game Balance Auditing",
+  "version": "0.1.2",
+  "description": "17 deterministic tools for game numerical design & balance auditing: import xlsx config tables, audit growth curves, simulate battle/gacha, and reverse-engineer spreadsheet formulas — zero LLM guessing.",
+  "author": {
+    "name": "26048608982lp-ai",
+    "url": "https://github.com/26048608982lp-ai/gamenumerics"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/26048608982lp-ai/gamenumerics"
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/dist/index.js"],
+      "env": {}
+    }
+  },
+  "compatibility": {
+    "runtimes": {
+      "node": ">=18.0.0"
+    },
+    "platforms": ["win32", "darwin", "linux"]
+  },
+  "keywords": ["game-design", "game-balance", "numerical-design", "xlsx", "audit", "roguelike"]
+}
