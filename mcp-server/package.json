@@ -4,6 +4,7 @@
   "description": "MCP server for game numerical design & balance auditing — 17 deterministic tools (xlsx table import, growth-curve audit, battle/gacha simulation, power curve) for Claude Code, Cursor, ZCode & any MCP host. 游戏数值设计 MCP server：确定性数值引擎接入任意 MCP 宿主。",
   "type": "module",
   "license": "MIT",
+  "mcpName": "io.github.26048608982lp-ai/gamenumerics",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/26048608982lp-ai/gamenumerics.git",
