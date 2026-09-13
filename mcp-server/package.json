@@ -1,0 +1,54 @@
+{
+  "name": "mcp-server-gamenumerics",
+  "version": "0.1.2",
+  "description": "MCP server for game numerical design & balance auditing — 17 deterministic tools (xlsx table import, growth-curve audit, battle/gacha simulation, power curve) for Claude Code, Cursor, ZCode & any MCP host. 游戏数值设计 MCP server：确定性数值引擎接入任意 MCP 宿主。",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/26048608982lp-ai/gamenumerics.git",
+    "directory": "mcp-server"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "mcp-server",
+    "claude",
+    "claude-code",
+    "cursor",
+    "game-design",
+    "game-balance",
+    "game-balancing",
+    "game-numerics",
+    "game-economy",
+    "gamedev",
+    "roguelike",
+    "deckbuilder",
+    "balance",
+    "spreadsheet",
+    "xlsx",
+    "数值策划",
+    "数值",
+    "游戏数值"
+  ],
+  "bin": {
+    "gnd-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "HOST-VERIFICATION.md"
+  ],
+  "scripts": {
+    "build": "node -e \"require('esbuild').buildSync({entryPoints:['src/index.ts'],bundle:true,platform:'node',format:'esm',outfile:'dist/index.js',banner:{js:`#!/usr/bin/env node\\nimport { createRequire } from 'module'; const require = createRequire(import.meta.url);`}})\"",
+    "prepublishOnly": "npm run build",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.0.0",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

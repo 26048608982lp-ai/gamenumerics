@@ -1,0 +1,30 @@
+{
+  "name": "gamenumerics",
+  "version": "0.1.2",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "Deterministic numeric engines for game design — xlsx table normalization, curve auditing, battle/gacha simulation, and the mcp-server-gamenumerics stdio server",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/26048608982lp-ai/gamenumerics.git"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "check": "tsc --noEmit",
+    "mcp:check": "cd mcp-server && npm run check",
+    "mcp:build": "cd mcp-server && npm run build",
+    "mcp:publish": "cd mcp-server && npm publish"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.0.0",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "^2.0.0",
+    "@types/node": "^20.11.0",
+    "esbuild": "^0.28.2",
+    "typescript": "^5.3.0",
+    "vitest": "^4.1.4"
+  }
+}
